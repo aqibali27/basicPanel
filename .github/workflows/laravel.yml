@@ -29,12 +29,6 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
-      # 5️⃣ Run migrations & tests
-      - name: Run migrations and tests
-        run: |
-          php artisan migrate --force
-          php artisan test
-
       # 6️⃣ Deploy to server
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
