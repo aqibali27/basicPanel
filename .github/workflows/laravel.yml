@@ -1,44 +1,44 @@
-name: Laravel CI/CD
+# name: Laravel CI/CD
 
-on:
-  push:
-    branches: [ main ]
+# on:
+#   push:
+#     branches: [ main ]
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      # 1️⃣ Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v4
+#     steps:
+#       # 1️⃣ Checkout code
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      # 2️⃣ Setup PHP
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
+#       # 2️⃣ Setup PHP
+#       - name: Setup PHP
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: 8.2
 
-      # 3️⃣ Composer install
-      - name: Install dependencies
-        run: composer install --no-dev --prefer-dist --optimize-autoloader
+#       # 3️⃣ Composer install
+#       - name: Install dependencies
+#         run: composer install --no-dev --prefer-dist --optimize-autoloader
 
-      # 4️⃣ Copy env and generate key
-      - name: Setup environment
-        run: |
-          cp .env.example .env
-          php artisan key:generate
+#       # 4️⃣ Copy env and generate key
+#       - name: Setup environment
+#         run: |
+#           cp .env.example .env
+#           php artisan key:generate
 
-      # 6️⃣ Deploy to server
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd /home/cresce14/basicPanel
-            php artisan down
-            git pull origin main
-            php artisan optimize:clear
-            php artisan up
+#       # 6️⃣ Deploy to server
+#       - name: Deploy to server
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ secrets.SERVER_IP }}
+#           username: ${{ secrets.SERVER_USER }}
+#           key: ${{ secrets.SERVER_SSH_KEY }}
+#           script: |
+#             cd /home/cresce14/basicPanel
+#             php artisan down
+#             git pull origin main
+#             php artisan optimize:clear
+#             php artisan up
